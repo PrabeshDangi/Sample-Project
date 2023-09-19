@@ -1,0 +1,120 @@
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;900&display=swap');
+            * {
+                padding: 0;
+                margin: 0;
+                box-sizing: border-box;
+                font-family: 'Roboto', sans-serif;
+            }
+            
+            .buttonClass {
+                color: white;
+                padding: 0.8rem 1.8rem;
+                margin: 0.5rem;
+                cursor: pointer;
+                border: none;
+                border-radius: 10px;
+            }
+            
+            .roleSelector {
+                display: flex;
+                gap: 1rem;
+                padding: 1rem;
+                font-size: 1.2rem;
+            }
+            
+            .producerDesc {
+                font-size: 1rem;
+                padding: 0.5rem 0;
+            }
+            
+            .form {
+                margin-top: 1rem;
+            }
+            
+            .form>div {
+                margin: 1rem;
+            }
+            
+            .form>div>input {
+                width: 20rem;
+                height: 2rem;
+                padding: 1rem;
+                font-size: 1rem;
+            }
+            
+            .hero-page {
+                display: flex;
+                align-items: center;
+                height: calc(100vh-5rem);
+                margin-top: 5rem;
+            }
+            
+            .hero-page>Main {
+                width: 50%;
+            }
+            
+            .hero-photo {
+                width: 250rem;
+                height: 100%;
+            }
+            
+            .hero-photo img {
+                width: 100%;
+                border-radius: 0.8rem;
+                box-shadow: 0 5px 10px rgba(60, 179, 113, 0.6);
+            }
+            
+            footer {
+                background-color: #7ba864;
+                margin-top: 3rem;
+            }
+            
+            footer img {
+                mix-blend-mode: multiply;
+            }
+            
+            footer>.row {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                padding: 0 3rem;
+                margin: 1rem;
+            }
+            
+            footer ul {
+                list-style: none;
+            }
+            
+            footer ul li {
+                margin: 0.7rem 0
+            }
+            
+            footer ul li a {
+                text-decoration: none;
+            }
+            
+            .registerSection {
+                padding-top: 1rem;
+            }
+            
+            @media screen and (max-width:922px) {
+                .hero-page {
+                    flex-direction: column;
+                    margin-top: 1rem;
+                }
+                .hero-photo {
+                    width: 100%;
+                    padding: 1rem;
+                }
+                footer .row {
+                    flex-direction: column;
+                    align-items: start;
+                    margin: 0;
+                }
+                .column {
+                    margin: 1rem 0;
+                }
+                footer p {
+                    margin-top: 1rem;
+                }
+            }
