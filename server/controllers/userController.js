@@ -86,103 +86,103 @@ const logoutUser = async (req, res) => {
   }
 };
 
-// const forgotPassword = async (req, res, next) => {
-//   try {
-//     const user = await User.findOne({ email: req.body.email });
+const forgotPassword = async (req, res, next) => {
+  try {
+    const user = await User.findOne({ email: req.body.email });
 
-//     if (!user) {
-//       return res.status(404).json({
-//         success: false,
-//         message: "User not found",
-//       });
-//     }
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
 
-//     const resetToken = genPwResetToken(user);
+    const resetToken = genPwResetToken(user);
 
-//     // console.log("RESET TOKEN", resetToken);
+    // console.log("RESET TOKEN", resetToken);
 
-//     await user.save();
+    await user.save();
 
-//     const resetPasswordUrl = `${req.protocol}://${req.get(
-//       "host"
-//     )}/api/password/reset/${resetToken}`;
+    const resetPasswordUrl = `${req.protocol}://${req.get(
+      "host"
+    )}/api/password/reset/${resetToken}`;
 
-//     const message = `Your password reset token is:\n\n${resetPasswordUrl}\n\nIf you have not requested for this email, then please ignore it!`;
+    const message = `Your password reset token is:\n\n${resetPasswordUrl}\n\nIf you have not requested for this email, then please ignore it!`;
 
-//     try {
-//       await sendEmail({
-//         email: user.email,
-//         subject: "Ecommerce Password Recovery",
-//         message,
-//       });
+    try {
+      await sendEmail({
+        email: user.email,
+        subject: "Ecommerce Password Recovery",
+        message,
+      });
 
-//       res.status(200).json({
-//         success: true,
-//         message: `Email sent to ${user.email} successfully`,
-//       });
-//     } catch (err) {
-//       user.resetPasswordToken = undefined;
-//       user.resetPasswordExpire = undefined;
+      res.status(200).json({
+        success: true,
+        message: `Email sent to ${user.email} successfully`,
+      });
+    } catch (err) {
+      user.resetPasswordToken = undefined;
+      user.resetPasswordExpire = undefined;
 
-//       return res.status(500).json({
-//         success: false,
-//         message: err.message,
-//       });
-//     }
-//   } catch (error) {
-//     return res.status(500).json({
-//       success: false,
-//       message: error.message,
-//     });
-//   }
-// };
+      return res.status(500).json({
+        success: false,
+        message: err.message,
+      });
+    }
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
 
-// const resetPassword = async (req, res) => {
-//   try {
-//     const resetPasswordToken = crypto
-//       .createHash("sha256")
-//       .update(req.params.token)
-//       .digest("hex");
+const resetPassword = async (req, res) => {
+  try {
+    const resetPasswordToken = crypto
+      .createHash("sha256")
+      .update(req.params.token)
+      .digest("hex");
 
-//     const user = await User.findOne({
-//       resetPasswordToken,
-//       resetPasswordExpire: { $gt: Date.now() },
-//     });
+    const user = await User.findOne({
+      resetPasswordToken,
+      resetPasswordExpire: { $gt: Date.now() },
+    });
 
-//     if (!user) {
-//       return res.status(404).json({
-//         success: false,
-//         message: "Reset password token is invalid or has been expired!",
-//       });
-//     }
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "Reset password token is invalid or has been expired!",
+      });
+    }
 
-//     if (req.body.password !== req.body.confirmPassword) {
-//       return res.status(400).json({
-//         success: false,
-//         message: "Password and confirmation password does not match!",
-//       });
-//     }
+    if (req.body.password !== req.body.confirmPassword) {
+      return res.status(400).json({
+        success: false,
+        message: "Password and confirmation password does not match!",
+      });
+    }
 
-//     // Use hashed password and save it in the database later
-//     const saltRounds = 10;
-//     const salt = bcrypt.genSalt(saltRounds);
-//     user.password = await bcrypt.hash(user.password, +salt);
+    // Use hashed password and save it in the database later
+    const saltRounds = 10;
+    const salt = bcrypt.genSalt(saltRounds);
+    user.password = await bcrypt.hash(user.password, +salt);
 
-//     user.resetPasswordToken = undefined;
-//     user.resetPasswordExpire = undefined;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
 
-//     // console.log(user);
+    // console.log(user);
 
-//     await user.save();
+    await user.save();
 
-//     sendToken(user, 200, res);
-//   } catch (error) {
-//     return res.status(404).json({
-//       success: false,
-//       message: error.message,
-//     });
-//   }
-// };
+    sendToken(user, 200, res);
+  } catch (error) {
+    return res.status(404).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
 
 const getUserDetails = async (req, res) => {
   const user = await User.findById(req.user.id);
@@ -195,64 +195,64 @@ const getUserDetails = async (req, res) => {
   });
 };
 
-// const changePassword = async (req, res) => {
-//   try {
-//     const user = await User.findById(req.user.id);
+const changePassword = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
 
-//     const isPasswordMatched = await bcrypt.compare(
-//       req.body.oldPassword,
-//       user.password
-//     );
+    const isPasswordMatched = await bcrypt.compare(
+      req.body.oldPassword,
+      user.password
+    );
 
-//     if (!isPasswordMatched) {
-//       return res.status(401).json({ message: "Invalid email or password!" });
-//     }
+    if (!isPasswordMatched) {
+      return res.status(401).json({ message: "Invalid email or password!" });
+    }
 
-//     if (req.body.newPassword !== req.body.confirmPassword) {
-//       return res.status(400).json({
-//         success: false,
-//         message: "Password does not match",
-//       });
-//     }
-//     const saltRounds = 10;
-//     const salt = bcrypt.genSalt(saltRounds);
-//     user.password = await bcrypt.hash(req.body.newPassword, +salt);
+    if (req.body.newPassword !== req.body.confirmPassword) {
+      return res.status(400).json({
+        success: false,
+        message: "Password does not match",
+      });
+    }
+    const saltRounds = 10;
+    const salt = bcrypt.genSalt(saltRounds);
+    user.password = await bcrypt.hash(req.body.newPassword, +salt);
 
-//     await user.save();
+    await user.save();
 
-//     sendToken(user, 200, res);
-//   } catch (error) {
-//     return res.status(500).json({
-//       success: false,
-//       message: error.message,
-//     });
-//   }
-// };
+    sendToken(user, 200, res);
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
 
-// const updateProfile = async (req, res) => {
-//   try {
-//     const newUserData = {
-//       name: req.body.name,
-//       email: req.body.email,
-//     };
+const updateProfile = async (req, res) => {
+  try {
+    const newUserData = {
+      name: req.body.name,
+      email: req.body.email,
+    };
 
-//     const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
-//       new: true,
-//       runValidators: true,
-//       useFindAndModify: false,
-//     });
+    const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false,
+    });
 
-//     res.status(200).json({
-//       success: true,
-//       message: "Profile updated successfully!",
-//     });
-//   } catch (error) {
-//     return res.status(500).json({
-//       success: false,
-//       message: error.message,
-//     });
-//   }
-// };
+    res.status(200).json({
+      success: true,
+      message: "Profile updated successfully!",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
 
 // For admin
 const getAllUsers = async (req, res) => {
@@ -360,11 +360,11 @@ module.exports = {
   registerUser,
   loginUser,
   logoutUser,
-  //   forgotPassword,
-  //   resetPassword,
+  forgotPassword,
+  resetPassword,
   getUserDetails,
-  //   changePassword,
-  //   updateProfile,
+  changePassword,
+  updateProfile,
   getAllUsers,
   getSingleUser,
   updateUserRole,

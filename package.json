@@ -9,8 +9,8 @@
     "mongoose": "^7.5.2",
     "validator": "^13.11.0"
   },
-  "name": "terabyte",
-  "description": "Bhaktapur Multiple Campus",
+  "name": "full-stack-app",
+  "description": "Simple full stack app",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -18,14 +18,6 @@
     "start": "node server/index.js",
     "dev": "nodemon server/index.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/TechTrixNepal2023/Terabyte.git"
-  },
   "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/TechTrixNepal2023/Terabyte/issues"
-  },
-  "homepage": "https://github.com/TechTrixNepal2023/Terabyte#readme"
+  "license": "ISC"
 }

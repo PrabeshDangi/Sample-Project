@@ -19,11 +19,11 @@ const userRoutes = (app) => {
   app.post("/api/register", registerUser);
   app.post("/api/login", loginUser);
   app.get("/api/logout", logoutUser);
-  //   app.post("/api/password/forgot", forgotPassword);
-  //   app.put("/api/password/reset/:token", resetPassword);
+  app.post("/api/password/forgot", forgotPassword);
+  app.put("/api/password/reset/:token", resetPassword);
   app.get("/api/profile", isUserAuthenticated, getUserDetails);
-  //   app.put("/api/password/change", isUserAuthenticated, changePassword);
-  //   app.put("/api/profile/update", isUserAuthenticated, updateProfile);
+  app.put("/api/password/change", isUserAuthenticated, changePassword);
+  app.put("/api/profile/update", isUserAuthenticated, updateProfile);
   app.get(
     "/api/admin/users",
     isUserAuthenticated,

@@ -1,2 +1,1 @@
-# Terabyte
-Bhaktapur Multiple Campus
+
